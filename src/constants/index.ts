@@ -36,6 +36,10 @@ export namespace Constants {
         ? new RegExp(/^.+?(セット|ドリル|メニュー)$/)
         : new RegExp(/^.+?(セット|ドリル|メニュー)_dev$/);
   }
+  /**
+   * 二度手間な気もするが, 本番環境であるかどうかの定数
+   */
+  export const IS_PRODUCTION = process.env.NODE_ENV == 'production';
 }
 
 export default Constants;
