@@ -23,14 +23,8 @@ export namespace Router {
       }
       msg.reply('DMに情報を送ります！');
 
-      const commander = msg.author;
-      if (commander.dmChannel === null) {
-        await commander.createDM();
-      }
-      if (commander.dmChannel === null) {
-        msg.reply('DMを利用することができません');
-        return;
-      }
+      const dmChannel = await msg.author.createDM();
+
       const guildMembers = msg.guild?.members;
       if (!guildMembers) {
         msg.reply('サーバ参加者の情報を取得することができません');
@@ -48,7 +42,7 @@ export namespace Router {
         Buffer.from(contents),
         `forest-userlist-${Date.now().toString()}.csv`,
       );
-      await commander.dmChannel?.send(attachment);
+      await dmChannel.send(attachment);
     }
   }
 }

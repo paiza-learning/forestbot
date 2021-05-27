@@ -15,8 +15,8 @@ client.on('message', Router.MessageRouter);
 
 if (Constants.IS_PRODUCTION) {
   client.on('guildMemberAdd', async (member) => {
-    if (member.user.dmChannel === null) await member.user.createDM();
-    member.user.dmChannel?.send(`こんにちは！
+    const dmChannel = await member.user.createDM();
+    dmChannel.send(`こんにちは！
 「paizaの森」からのお知らせです.
 あなたの Discord ID は \`${member.user.id}\` です.
 「paizaの森 > INFORMATION > #メールアドレスの登録」に従って, メールアドレスと上記の ID を報告してください.
