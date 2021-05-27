@@ -6,11 +6,6 @@ const DiscordConstants = Constants.Discord;
 
 export namespace Router {
   export async function MessageRouter(msg: Message) {
-    // メッセージがbotによるものであれば無視
-    if (msg.author.bot) {
-      return;
-    }
-
     const channel = msg.channel;
     if (!(channel instanceof TextChannel)) {
       return;
@@ -22,6 +17,10 @@ export namespace Router {
 
     // 一旦間に合わせでの実装
     if (msg.member?.hasPermission('ADMINISTRATOR') && msg.content === '/list') {
+      // メッセージがbotによるものであれば無視
+      if (msg.author.bot) {
+        return;
+      }
       msg.reply('DMに情報を送ります！');
 
       const commander = msg.author;
