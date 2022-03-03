@@ -33,8 +33,8 @@ export namespace Constants {
      */
     export const TIMES_NAME_PATTERN =
       process.env.NODE_ENV == 'production'
-        ? new RegExp(/^.+?(セット|ドリル|メニュー)$/)
-        : new RegExp(/^.+?(セット|ドリル|メニュー)_dev$/);
+        ? new RegExp(/^.+?(セット|ドリル|メニュー)[0-9０-９]*$/)
+        : new RegExp(/^.+?(セット|ドリル|メニュー)[0-9０-９]*_dev$/);
   }
   /**
    * 二度手間な気もするが, 本番環境であるかどうかの定数
