@@ -1,17 +1,23 @@
-import { Client } from 'discord.js';
+import { Client, Intents } from 'discord.js';
 import { Constants } from './constants';
 import { Router } from './router';
 import Debug from 'debug';
 
 const debug = Debug('forest');
 
-const client = new Client();
+const client = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_MESSAGES,
+  ],
+});
 
 client.on('ready', () => {
   debug('forest bot: ready.');
 });
 
-client.on('message', Router.MessageRouter);
+client.on('messageCreate', Router.MessageRouter);
 
 if (Constants.IS_PRODUCTION) {
   client.on('guildMemberAdd', async (member) => {
