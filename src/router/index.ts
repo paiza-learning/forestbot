@@ -1,4 +1,9 @@
-import { TextChannel, Message, MessageAttachment } from 'discord.js';
+import {
+  TextChannel,
+  Message,
+  MessageAttachment,
+  Permissions,
+} from 'discord.js';
 import Constants from '../constants';
 import { Handler } from '../handler';
 
@@ -16,20 +21,20 @@ export namespace Router {
     }
 
     // 一旦間に合わせでの実装
-    if (msg.member?.hasPermission('ADMINISTRATOR') && msg.content === '/list') {
-      // メッセージがbotによるものであれば無視
-      if (msg.author.bot) {
-        return;
-      }
-      msg.reply('DMに情報を送ります！');
-
-      const dmChannel = await msg.author.createDM();
-
+    if (
+      !msg.author.bot &&
+      msg.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR) &&
+      msg.content === '/list'
+    ) {
       const guildMembers = msg.guild?.members;
       if (!guildMembers) {
         msg.reply('サーバ参加者の情報を取得することができません');
         return;
       }
+
+      msg.reply('DMに情報を送ります！');
+
+      const dmChannel = await msg.author.createDM();
 
       let contents = 'displayname,tag,id\n';
       contents += (await guildMembers.fetch())
@@ -42,7 +47,7 @@ export namespace Router {
         Buffer.from(contents),
         `forest-userlist-${Date.now().toString()}.csv`,
       );
-      await dmChannel.send(attachment);
+      await dmChannel.send({ files: [attachment] });
     }
   }
 }

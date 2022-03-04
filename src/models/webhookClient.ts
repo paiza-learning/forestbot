@@ -9,15 +9,15 @@ export class TimeLineWebhookClient {
   client: WebhookClient;
 
   constructor() {
-    this.client = new WebhookClient(
-      DiscordConstants.TIMELINE_ID,
-      DiscordConstants.TIMELINE_TOKEN,
-    );
+    this.client = new WebhookClient({
+      id: DiscordConstants.TIMELINE_ID,
+      token: DiscordConstants.TIMELINE_TOKEN,
+    });
   }
 
   postToTimeLine(text: string, options: WebhookMessageOptions) {
     this.client
-      .send(text, options)
+      .send({ content: text, ...options })
       .then((msg) => {
         debug(msg);
       })
