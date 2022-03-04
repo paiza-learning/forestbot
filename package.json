@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "debug": "^4.3.1",
-    "discord.js": "^12.5.1",
+    "discord.js": "^13.6.0",
     "dotenv": "^8.2.0",
     "ts-node": "^9.1.1"
   },
