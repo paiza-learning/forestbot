@@ -7,7 +7,14 @@ import {
 import Constants from '../constants';
 import { Handler } from '../handler';
 
-const DiscordConstants = Constants.Discord;
+/**
+ * タイムラインに集約するテキストチャンネルかどうかを判断する
+ */
+function checkChannelCollection(channel: TextChannel): boolean {
+  return (
+    channel.topic?.includes(Constants.Discord.CHANNEL_COLLECTION_WORD) ?? false
+  );
+}
 
 export namespace Router {
   export async function MessageRouter(msg: Message) {
@@ -16,7 +23,7 @@ export namespace Router {
       return;
     }
 
-    if (channel.name.match(DiscordConstants.TIMES_NAME_PATTERN)) {
+    if (checkChannelCollection(channel)) {
       Handler.timeLineHandler(msg);
     }
 
