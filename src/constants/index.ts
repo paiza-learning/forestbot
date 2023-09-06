@@ -28,13 +28,11 @@ export namespace Constants {
     export const TIMELINE_TOKEN = process.env.DISCORD_TIMELINE_TOKEN || '';
 
     /**
-     * TIMESとして認識するDISCORDチャンネルの正規表現
+     * タイムラインに集約するチャンネルトピックに含むべき文言
      * 本番環境かどうかで返却する正規表現が異なる
      */
-    export const TIMES_NAME_PATTERN =
-      process.env.NODE_ENV == 'production'
-        ? new RegExp(/^.+?(セット|ドリル|メニュー)[0-9０-９]*$/)
-        : new RegExp(/^.+?(セット|ドリル|メニュー)[0-9０-９]*_dev$/);
+    export const CHANNEL_COLLECTION_WORD =
+      process.env.NODE_ENV == 'production' ? '#collect' : '#dev-collect';
   }
   /**
    * 二度手間な気もするが, 本番環境であるかどうかの定数
